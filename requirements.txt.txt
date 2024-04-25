@@ -1,5 +1,0 @@
-tensorflow
-mediapipe
-opencv-python
-numpy
-matplotlib
