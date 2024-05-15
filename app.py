@@ -1,6 +1,5 @@
 import tensorflow as tf
 import cv2
-import matplotlib as plt
 import numpy as np
 import time
 from tensorflow.keras.models import Sequential
@@ -15,7 +14,7 @@ import os
 def draw(frame,landmarks,mp_draw,mp_hol):
         mp_draw.draw_landmarks(frame,landmarks.face_landmarks,mp_hol.FACEMESH_CONTOURS,
                               mp_draw.DrawingSpec(color=(98,226,34), thickness=1, circle_radius=1),
-                              mp_draw.DrawingSpec(color=(238,38,211), thickness=2, circle_radius=1))
+                              mp_draw.DrawingSpec(color=(238,38,211), thickness=1, circle_radius=1))
         mp_draw.draw_landmarks(frame,landmarks.left_hand_landmarks,mp_hol.HAND_CONNECTIONS,
                               mp_draw.DrawingSpec(color=(238,231,38), thickness=3, circle_radius=4),
                               mp_draw.DrawingSpec(color=(238,38,211), thickness=3, circle_radius=4))
@@ -23,8 +22,8 @@ def draw(frame,landmarks,mp_draw,mp_hol):
                               mp_draw.DrawingSpec(color=(238,231,38), thickness=3, circle_radius=4),
                               mp_draw.DrawingSpec(color=(238,38,211), thickness=3, circle_radius=4))
         mp_draw.draw_landmarks(frame,landmarks.pose_landmarks,mp_hol.POSE_CONNECTIONS,
-                              mp_draw.DrawingSpec(color=(98,226,34), thickness=3, circle_radius=4),
-                              mp_draw.DrawingSpec(color=(238,38,211), thickness=3, circle_radius=4))
+                              mp_draw.DrawingSpec(color=(98,226,34), thickness=2, circle_radius=2),
+                              mp_draw.DrawingSpec(color=(238,38,211), thickness=2, circle_radius=2))
         
 def extract_landmarks(landmarks):
     if landmarks.pose_landmarks:
@@ -96,6 +95,8 @@ with mp_hol.Holistic(min_detection_confidence=0.5,min_tracking_confidence=0.5) a
                 if len(text)>0:
                     if label_map[p_idx]!=text[-1]:
                         text.append(label_map[p_idx])
+                        text=text[-1:]
+                        
                 else:
                     text.append(label_map[p_idx])
 
